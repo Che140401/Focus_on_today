@@ -1,0 +1,89 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    color: #000000;
+    
+}
+body{
+    background-color: rgb(242,248,237);
+}
+
+.container{
+    max-width: 660px;
+    width: 90%;
+    margin: 0 auto;
+}
+.box-main
+{
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 0px 45px;
+}
+
+.box-main .inner-box h2
+{
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.heading-contain
+{
+    display: flex;
+    gap: 15px;
+}
+
+.progress-contain h3
+{
+    font-weight: 400;
+    color: #858585;
+    font-size: 14px;
+}
+.progress-contain .bar
+{
+    background: rgb(233, 242, 226);
+    border-radius: 25px;
+    height: 30px;
+}
+.task-add h3
+{
+    color: #FF5151;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+
+/* list-adder */
+.list-adder .list
+{
+    border: 1px solid #000000;
+    display: flex;
+    gap: 25px;
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 46px;
+    opacity: 0.2;
+}
+
+.list-adder .input input
+{
+    font-weight: 500;
+    color: #000000;
+    font-size: 16px;
+    border: none;
+}
+
+.list-adder .list
+{
+    display: flex;
+    gap: 25px;
+}
+
+.bar p
+{
+    font-weight: 500;
+    font-size: 10px;
+    padding: 7px 20px;
+}

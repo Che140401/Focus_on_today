@@ -87,3 +87,15 @@ body{
     font-size: 10px;
     padding: 7px 20px;
 }
+
+.footer-contain p
+{
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+}
+
+.inner-box
+{
+    padding-bottom: 50px;
+}

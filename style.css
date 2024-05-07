@@ -99,3 +99,22 @@ body{
 {
     padding-bottom: 50px;
 }
+
+#progress
+{
+    position: relative;
+    color: white;
+    z-index: 1;
+}
+#progress::after{
+    content: '';
+    position: absolute;
+    width: 80%;
+    /* height: 70%; */
+    top: 0;
+    bottom: 0;
+    background-color: red;
+    left: 0;
+    z-index: -1;
+    border-radius: 25px;
+}

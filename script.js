@@ -41,15 +41,32 @@
     console.log("bar update");
     }
 
-    function reversebarupdate()
-    {
+  
+    function updateProgressText(count) {
+        const progressText = document.getElementById('progress');
+        progressText.textContent = `${count}/3 Completed`;
+    
+        if (count === 0) {
+            // If progress count is 0, revert progress bar and task bar text
+            reversebarupdate();
+        } else if (count === 3) {
+            // If all goals are completed, update progress bar and task bar text
+            barupdate();
+        } else {
+            // If progress count is less than 3 but not 0, revert progress bar and task bar text
+            reversebarupdate();
+        }
+    }
+    
+    function reversebarupdate() {
+        // Loop through each element with class name 'progess_bar_change' and update inner HTML
         Array.from(progess_bar_change).forEach(element => {
             element.innerHTML = "Raise the bar by completing your goals!";
         });
     
         // Loop through each element with class name 'taskadd_bar_change' and update inner HTML
         Array.from(taskadd_bar_change).forEach(element => {
-            element.style.visibility="visible";
+            element.style.visibility = "visible";
         });
     
         // Loop through each element with class name 'footer-bar-changed' and update inner HTML
@@ -57,8 +74,10 @@
             element.innerHTML = "Move one step ahead, today!";
         });
     
-        console.log("bar update");
+        console.log("bar reverted");
     }
+    
+    
 
     //on list click
     list_click.forEach(function(item) {
@@ -71,38 +90,28 @@
 
     list_img.forEach(function(item, index) {
         item.addEventListener('click', function(e) {
-            //Toggle the custom attribute 'data-toggled'
             let parentList = item.closest('.list');
             let inputField = parentList.querySelector(".input input");
             const clickedIndex = Array.from(list_img).indexOf(item);
             if (inputField) {
                 const inputvalue = inputField.value.trim();
                 if (inputvalue !== "") {
-                    datacount = 0;
                     if (item.getAttribute('data-toggled') === 'true') {
-                        item.src = './imgs/incomplete-circle.png'; //Reset image source;
-                        item.setAttribute("data-toggled", "false"); //update attribute
-                        // Revert color and decoration
-                        parentList = item.closest('.list');
-                        inputField = parentList.querySelector(".input input");
-                        if (inputField) {
-                            inputField.style.color = ""; // Revert color to default
-                            inputField.style.textDecoration = ""; // Remove text decoration
-                        }
+                        item.src = './imgs/incomplete-circle.png'; // Reset image source;
+                        item.setAttribute("data-toggled", "false"); // Update attribute
+                        inputField.style.color = ""; // Reset color to default
+                        inputField.style.textDecoration = ""; // Remove text decoration
+                        // Decrement completion count and update progress text
+                        completed_goals[index] = null;
+                        updateProgressText(completed_goals.filter(goal => goal !== null).length);
                     } else {
-                        item.src = "./imgs/tick_mark.png"; //set image source to 'tick_mark.png'
+                        item.src = "./imgs/tick_mark.png"; // Set image source to 'tick_mark.png'
                         item.setAttribute('data-toggled', 'true');
-                        parentList = item.closest('.list');
-                        inputField = parentList.querySelector(".input input");
-                        if (inputField) {
-                            let inputValue = inputField.value;
-                            inputField.style.color = "green";
-                            inputField.style.textDecoration = "line-through";
-                            const inputvalue = inputField.value;
-                            completed_goals[index] = inputvalue;
-                            barupdate();
-                            updateProgressText(index)
-                        }
+                        inputField.style.color = "green";
+                        inputField.style.textDecoration = "line-through";
+                        const inputvalue = inputField.value;
+                        completed_goals[index] = inputvalue;
+                        updateProgressText(completed_goals.filter(goal => goal !== null).length);
                     }
                 } else {
                     alert("please enter the list name")
@@ -112,6 +121,8 @@
             }
         });
     });
+    
+    
     
     
 
@@ -124,3 +135,34 @@
         })
     })
 
+
+    // Function to save data to local storage
+function saveDataToLocalStorage(progressData, listData) {
+    localStorage.setItem('progressData', JSON.stringify(progressData));
+    localStorage.setItem('listData', JSON.stringify(listData));
+}
+
+// Function to load data from local storage
+function loadDataFromLocalStorage() {
+    const progressData = JSON.parse(localStorage.getItem('progressData')) || {};
+    const listData = JSON.parse(localStorage.getItem('listData')) || [];
+    return { progressData, listData };
+}
+
+// Sample progress data and list data
+let progressData = { completedSessions: 0 };
+let listData = [
+    { name: 'Task 1', completed: false },
+    { name: 'Task 2', completed: false },
+    { name: 'Task 3', completed: false }
+];
+
+// Save data to local storage
+saveDataToLocalStorage(progressData, listData);
+
+// Load data from local storage
+const { progressData: loadedProgressData, listData: loadedListData } = loadDataFromLocalStorage();
+console.log(loadedProgressData);
+console.log(loadedListData);
+
+// Now you can use loadedProgressData and loadedListData in your application
